@@ -1,3 +1,7 @@
+# Intellij
+.idea/
+.svn/
+
 # Compiled class file
 *.class
 
