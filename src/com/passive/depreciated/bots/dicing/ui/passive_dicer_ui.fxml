@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<fx:root hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="683.0" type="javafx.scene.layout.GridPane" vgap="5.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+   <HBox prefHeight="272.0" prefWidth="500.0">
+      <children>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="314.0" prefWidth="125.0">
+         <children>
+               <Label text="Bot Setup">
+                  <font>
+                     <Font size="15.0" />
+                  </font>
+               </Label>
+               <Label text="Multiplier" />
+               <TextField fx:id="MULTIPLIER_BOX" promptText="Enter amount to multiply winnings by" text="2" />
+            <Label text="Min Value" />
+            <TextField fx:id="MIN_VAL_BOX" promptText="Min Value 1-100" text="55" />
+            <Label text="Max Value" />
+            <TextField fx:id="MAX_VAL_BOX" promptText="Max Value 1-100" text="100" />
+            <Button fx:id="SET_VAL_BTN" mnemonicParsing="false" text="Set" />
+            <CheckBox fx:id="RIG_COMBO" mnemonicParsing="false" text="Rig">
+                  <tooltip>
+                     <Tooltip text="This will double the success rate" />
+                  </tooltip>
+               </CheckBox>
+               <CheckBox fx:id="WIN_COMBO" mnemonicParsing="false" text="Force Win">
+                  <tooltip>
+                     <Tooltip text="This means you will lose money 100% of the time" />
+                  </tooltip>
+               </CheckBox>
+               <CheckBox fx:id="LOSS_COMBO" mnemonicParsing="false" text="Force Loss">
+                  <tooltip>
+                     <Tooltip text="This means you will gain money 100% of the time" />
+                  </tooltip>
+               </CheckBox>
+               <CheckBox fx:id="FAKE_BALANCE_BTN" layoutX="10.0" layoutY="216.0" mnemonicParsing="false" text="Fake Balance">
+                  <tooltip>
+                     <Tooltip text="This means you will gain money 100% of the time" />
+                  </tooltip>
+               </CheckBox>
+               <TextField fx:id="FAKE_BALANCE_BOX" layoutX="10.0" layoutY="132.0" prefHeight="40.0" prefWidth="125.0" promptText="FakeBalance" text="1000000" />
+         </children>
+      </VBox>
+         <VBox prefHeight="267.0" prefWidth="125.0">
+            <children>
+               <Label prefHeight="21.0" prefWidth="130.0" text="Current Settings">
+                  <font>
+                     <Font size="15.0" />
+                  </font>
+               </Label>
+               <Label text="Multiplier" />
+               <Label fx:id="MULTIPLIER_LBL" layoutX="10.0" layoutY="10.0" text="2x" />
+               <Label text="Min" />
+               <Label fx:id="MIN_LABEL" text="55" />
+               <Label text="Max" />
+               <Label fx:id="MAX_LABEL" text="100" />
+               <Label text="Rigged" />
+               <Label fx:id="RIG_LABEL" text="False" />
+               <Label text="Force Win" />
+               <Label fx:id="F_WIN_LABEL" text="False" />
+               <Label text="Force Loss" />
+               <Label fx:id="F_LOSS_LABEL" text="False" />
+            </children>
+         </VBox>
+         <VBox prefHeight="268.0" prefWidth="125.0">
+            <children>
+               <Label text="Anti Lure Setup">
+                  <font>
+                     <Font size="15.0" />
+                  </font>
+               </Label>
+               <Label prefHeight="17.0" prefWidth="131.0" text="Tiles from Origin" />
+               <TextField fx:id="ANTI_LURE_DIST" promptText="Max Value 1-100" text="0" />
+               <Button fx:id="GET_ORIGIN_BTN" layoutX="10.0" layoutY="94.0" mnemonicParsing="false" text="Get Origin" />
+               <Label fx:id="ORIGIN_LBL_PRE" text="(0,0)" />
+               <CheckBox fx:id="LURE_ENABLE" mnemonicParsing="false" text="Enabled">
+                  <tooltip>
+                     <Tooltip text="This will double the success rate" />
+                  </tooltip>
+               </CheckBox>
+               <Button fx:id="LURE_SET" layoutX="10.0" layoutY="128.0" mnemonicParsing="false" text="Set" />
+            </children>
+         </VBox>
+         <VBox prefHeight="255.0" prefWidth="125.0">
+            <children>
+               <Label text="Current Settings">
+                  <font>
+                     <Font size="15.0" />
+                  </font>
+               </Label>
+               <Label text="Tiles" />
+               <Label fx:id="LURE_TILES_LABEL" layoutX="10.0" layoutY="10.0" text="0" />
+               <Label text="Origin Co-ords" />
+               <Label fx:id="LOCATION_LABEL" text="(0,0)" />
+               <Label layoutX="10.0" layoutY="44.0" text="Enabled" />
+               <Label fx:id="LURE_ENABLED_LABEL" text="False" />
+            </children>
+         </VBox>
+      </children>
+   </HBox>
+   <TableView fx:id="history" maxHeight="1.7976931348623157E308" minHeight="200.0" prefHeight="400.0" GridPane.rowIndex="1" />
+   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
+      <children>
+         <Label text="Set Custom Origin (Can use to auto-walk to places)" />
+         <HBox prefHeight="100.0" prefWidth="200.0">
+            <children>
+               <TextField fx:id="C_ORIGIN_X" promptText="Custom X" />
+               <TextField fx:id="C_ORIGIN_Y" promptText="Custom Y" />
+               <Button fx:id="C_ORIGIN_BTN" mnemonicParsing="false" text="Set" />
+            </children>
+         </HBox>
+      </children>
+   </VBox>
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="200.0" />
+      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="200.0" />
+   </rowConstraints>
+</fx:root>

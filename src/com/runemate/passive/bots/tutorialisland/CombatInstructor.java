@@ -5,223 +5,256 @@ import com.runemate.game.api.hybrid.entities.Npc;
 import com.runemate.game.api.hybrid.local.Camera;
 import com.runemate.game.api.hybrid.local.hud.interfaces.*;
 import com.runemate.game.api.hybrid.location.Coordinate;
-import com.runemate.game.api.hybrid.location.navigation.basic.BresenhamPath;
 import com.runemate.game.api.hybrid.region.GameObjects;
 import com.runemate.game.api.hybrid.region.Npcs;
 import com.runemate.game.api.hybrid.region.Players;
+import com.runemate.game.api.script.framework.task.Task;
 
-public class CombatInstructor {
+import static com.passive.api.runescape.navigation.Travel.TravelTo;
+import static com.passive.api.runescape.npcs.Npcs.TalkTo;
 
-    public static void InteractGuide() {
+public class CombatInstructor extends Task {
+    GetContextItems.Context cont;
 
-        Npc Guide = Npcs.newQuery().names("Combat Instructor").results().nearest();
+    @Override
+    public void execute() {
+        Npc guide = Npcs.newQuery().names("Combat Instructor").reachable().results().nearest();
 
-        if (Guide == null || !Guide.isVisible()) {
-            String ct = GetCompUi.GetCompText();
-            if (!ct.startsWith("Combat interface") && !ct.startsWith("Attacking") && !ct.startsWith("Sit back and watch") && !ct.startsWith("Well done")  && !ct.startsWith("Rat ranging")  && !ct.startsWith("Moving on")){
-                BresenhamPath p = BresenhamPath.buildTo(new Coordinate(3105, 9507));
-                if (p != null) {
-                    p.step();
-                    return;
-                }
+        if (cont.altChatText.startsWith("Combat")) {
+            if (guide != null){
+                TalkTo(guide);
             }
-        }
+        } else if (cont.altChatText.startsWith("Equipping items") && cont.altChatText.contains("You now have access")){
 
+            InterfaceComponent equip = Interfaces.newQuery().actions("Worn Equipment").results().first();
+            if (equip != null){
+                equip.click();
+            } else {
+                InterfaceWindows.getEquipment().open();
+            }
+        } else if (cont.altChatText.startsWith("Worn inventory")) {
 
-        String dialog = ChatDialog.getText();
-        String dialogTitle = ChatDialog.getTitle();
-
-        System.out.println("Dialog: " + dialog);
-        System.out.println("Dialog Title: " + dialogTitle);
-
-        if (dialog != null){
-            ChatDialog.getContinue().select();
-            return;
-        }
-
-        NonGuideClick(Guide);
-    }
-
-    public static void NonGuideClick(Npc Guide) {
-
-        String compText = GetCompUi.GetCompText();
-
-        if (compText != null) {
-            if (compText.startsWith("Combat") && compText.contains("this area")) {
-                if (Guide.isVisible()){
-                    Guide.click();
-                } else{
-                    Camera.turnTo(Guide);
-                }
-            } else if (compText.startsWith("Equipping items") && compText.contains("You now have access")){
-                com.runemate.game.api.hybrid.local.hud.interfaces.InterfaceWindows.getEquipment().open();
-            } else if (compText.startsWith("Worn inventory")) {
+            if (InterfaceWindows.getEquipment().isOpen()){
                 InterfaceComponent eqStats = Interfaces.newQuery().visible().actions("View equipment stats").results().first();
 
                 if (eqStats != null){
                     eqStats.interact("View equipment stats");
                 }
-            } else if (compText.startsWith("Equipment stats") && compText.contains("You're now holding")){
-                InterfaceComponent eqStats = Interfaces.newQuery().visible().actions("Close").results().first();
+            } else {
+                InterfaceWindows.getEquipment().open();
+            }
 
-                if (eqStats != null){
-                    eqStats.interact("Close");
-                } else{
-                    if (Guide.isVisible()){
-                        Guide.click();
-                    } else{
-                        Camera.turnTo(Guide);
+        } else if (cont.altChatText.startsWith("Equipment stats") && cont.altChatText.contains("You're now holding")){
+            InterfaceComponent closeBtn = Interfaces.newQuery().visible().actions("Close").results().first();
+
+            if (closeBtn != null){
+                closeBtn.interact("Close");
+            } else{
+                if (guide != null) {
+                    if (guide.isVisible()) {
+                        guide.click();
+                    } else {
+                        Camera.turnTo(guide);
                     }
                 }
-            } else if (compText.startsWith("Equipment stats")) {
+            }
+        } else if (cont.altChatText.startsWith("Equipment stats")) {
 
-                SpriteItem dagger = Inventory.getItems("Bronze dagger").first();
+            SpriteItem dagger = Inventory.getItems("Bronze dagger").first();
 
-                if (dagger != null){
-                    dagger.click();
-                }
-            } else if (compText.startsWith("Unequipping items")) {
+            if (dagger != null){
+                dagger.click();
+            }
+        } else if (cont.altChatText.startsWith("Unequipping items")) {
 
-                SpriteItem BronzeSword = Inventory.getItems("Bronze sword").first();
-                if (BronzeSword != null){
-                    BronzeSword.click();
-                }
-                SpriteItem WoodShield = Inventory.getItems("Wooden shield").first();
-                if (WoodShield != null){
-                    WoodShield.click();
-                }
-            } else if (compText.startsWith("Combat interface") && compText.contains("This is your combat interface")) {
-                GameObject gate = GameObjects.newQuery().names("Gate").results().nearestTo(new Coordinate(3111, 9518));
+            SpriteItem BronzeSword = Inventory.getItems("Bronze sword").first();
+            if (BronzeSword != null){
+                BronzeSword.click();
+            }
+            SpriteItem WoodShield = Inventory.getItems("Wooden shield").first();
+            if (WoodShield != null){
+                WoodShield.click();
+            }
+        } if (cont.altChatText.startsWith("Combat interface")){
+            CombatInterface();
+        } else if (cont.altChatText.startsWith("Attacking")) {
+            AttackInCage();
+        } else if (cont.altChatText.startsWith("Sit back and watch")) {
+            Npc rat = Npcs.newQuery().names("Giant rat").results().nearest();
 
-                if (gate == null) {
-
-                    BresenhamPath p = BresenhamPath.buildTo(new Coordinate(3111, 9518));
-
-                    if (p != null){
-                        p.step();
-                    }
-                } else if (!gate.isVisible()) {
-                    Camera.turnTo(gate);
-                } else {
-                    gate.click();
-                }
-            } else if (compText.startsWith("Combat interface")) {
-                InterfaceComponent eqStats = Interfaces.newQuery().visible().actions("Combat Options").results().first();
-
-                if (eqStats != null){
-                    eqStats.interact("Combat Options");
-                }
-            } else if (compText.startsWith("Attacking")) {
-                Npc rat = Npcs.newQuery().names("Giant rat").reachable().results().nearest();
-
+            if (Players.getLocal().getHealthGauge() == null)
+            {
                 if (rat != null)
                 {
                     if (rat.getHealthGauge() == null){
                         if (rat.isVisible()){
                             rat.interact("Attack");
-                            //rat.click();
                         } else{
                             Camera.turnTo(rat);
                         }
                     }
-                } else {
-                    GoToGate();
                 }
-            } else if (compText.startsWith("Sit back and watch")) {
+            }
+        } else if (cont.altChatText.startsWith("Well done, you've made")) {
+            System.out.println("Well done stuff");
+            if (guide != null){
+                if (!guide.getPosition().isReachable()){
+                    GoToGate();
+                } else {
+                    if (guide.isVisible()){
+                        guide.click();
+                    } else{
+                        TravelTo(new Coordinate(3105, 9507));
+                    }
+                }
+            } else {
+                GoToGate();
+            }
+        } else if (cont.altChatText.startsWith("Rat ranging")) {
+            if (Equipment.containsAllOf("Shortbow", "Bronze arrow")) {
                 Npc rat = Npcs.newQuery().names("Giant rat").results().nearest();
 
-                if (Players.getLocal().getHealthGauge() == null)
+                if (rat != null)
                 {
-                    if (rat != null)
-                    {
-                        if (rat.getHealthGauge() == null){
-                            if (rat.isVisible()){
-                                rat.click();
-                            } else{
-                                Camera.turnTo(rat);
-                            }
-                        }
-                    }
-                }
-            } else if (compText.startsWith("Well done, you've made")) {
-                if (Guide != null){
-                    if (!Guide.getPosition().isReachable()){
-                        GoToGate();
-                    } else {
-                        if (Guide.isVisible()){
-                            Guide.click();
-                        } else{
-                            BresenhamPath p = BresenhamPath.buildTo(new Coordinate(3105, 9507));
-                            if (p != null) {
-                                p.step();
-                            }
-                        }
-                    }
-                } else {
-                    GoToGate();
-                }
-            } else if (compText.startsWith("Rat ranging")) {
-                if (Equipment.containsAllOf("Shortbow", "Bronze arrow")) {
-                    Npc rat = Npcs.newQuery().names("Giant rat").results().nearest();
-
-                    if (rat != null)
-                    {
+                    if (rat.isVisible()){
                         if (rat.getHealthGauge() == null){
                             rat.interact("Attack");
                             //rat.click();
                         }
-                    }
-                } else {
-                    if (InterfaceWindows.getInventory().isOpen()){
-                        SpriteItem BronzeArrows = Inventory.getItems("Bronze arrow").first();
-
-                        if (BronzeArrows != null){
-                            BronzeArrows.click();
-                        }
-
-                        SpriteItem Shortbow = Inventory.getItems("Shortbow").first();
-
-                        if (Shortbow != null){
-                            Shortbow.click();
-                        }
-
                     } else {
-                        InterfaceWindows.getInventory().open();
+                        Camera.turnTo(rat);
+                    }
+
+                }
+            } else {
+                EquipRange();
+            }
+        } else if (cont.altChatText.startsWith("Moving on")) {
+            GameObject ladder = GameObjects.newQuery().names("Ladder").results().nearestTo(Positions.CombatInstructorExitLadder);
+
+            if (ladder != null){
+                if (ladder.isVisible()){
+                    ladder.interact("Climb-up");
+                } else {
+                    Coordinate lPos = ladder.getPosition();
+                    if (lPos != null){
+                        if (cont.position().distanceTo(lPos) <= 5){
+                            Camera.turnTo(ladder);
+                        } else {
+                            TryExitRatStage();
+                        }
+                    } else {
+                        TryExitRatStage();
                     }
                 }
-            } else if (compText.startsWith("Moving on")) {
+            } else{
+                TryExitRatStage();
+            }
+        }
+    }
 
-                if (compText.contains("you've made your first weapon")){
-                    MiningTutor.InteractGuide();
-                    return;
-                }
+    public void TryExitRatStage(){
+        if (!TravelTo(Positions.CombatInstructorExitLadder)) {
+            if (!TravelTo(Positions.CombatInstructorRatGateOutside)){
+                System.out.println("Having trouble exiting rat stage");
+            }
+        }
+    }
 
-                GameObject ladder = GameObjects.newQuery().names("Ladder").results().nearestTo(new Coordinate(3111, 9524));
+    public void AttackInCage() {
+        Npc rat = Npcs.newQuery().names("Giant rat").reachable().results().nearest();
 
-                if (ladder != null && ladder.isVisible()){
-                    ladder.click();
+        if (rat != null)
+        {
+            if (rat.getHealthGauge() == null){
+                if (rat.isVisible()){
+                    rat.interact("Attack");
+                    //rat.click();
                 } else{
-                    BresenhamPath p = BresenhamPath.buildTo(new Coordinate(3111, 9524));
-                    if (p != null) {
-                        p.step();
-                    }
+                    Camera.turnTo(rat);
                 }
+            } else {
+                return;
+            }
+        } else {
+            GoToGate();
+        }
+    }
+
+    public void EquipRange() {
+        if (InterfaceWindows.getInventory().isOpen()){
+            SpriteItem BronzeArrows = Inventory.getItems("Bronze arrow").first();
+
+            if (BronzeArrows != null){
+                BronzeArrows.click();
+            }
+
+            SpriteItem Shortbow = Inventory.getItems("Shortbow").first();
+
+            if (Shortbow != null){
+                Shortbow.click();
+            }
+
+        } else {
+            InterfaceWindows.getInventory().open();
+        }
+    }
+
+    public void CombatInterface(){
+        if (cont.altChatText.contains("This is your combat interface")) {
+            //Move towards the gate
+            GameObject gate = GameObjects.newQuery().names("Gate").results().nearestTo(Positions.CombatInstructorRatGateOutside);
+
+            if (gate == null) {
+                TravelTo(Positions.CombatInstructorRatGateOutside);
+            } else if (!gate.isVisible()) {
+                Camera.turnTo(gate);
+            } else {
+                //gate.click();
+                gate.interact("Open");
+            }
+        } else {
+            InterfaceComponent eqStats = Interfaces.newQuery().visible().actions("Combat Options").results().first();
+
+            if (eqStats != null){
+                eqStats.interact("Combat Options");
             }
         }
     }
 
     public static void GoToGate(){
-        GameObject gate = GameObjects.newQuery().names("Gate").results().nearestTo(new Coordinate(3109, 9518));
+        GameObject gate = GameObjects.newQuery().names("Gate").results().nearestTo(Positions.CombatInstructorRatGateInside);
+
 
         if (gate == null || !gate.isVisible()) {
-            BresenhamPath p = BresenhamPath.buildTo(new Coordinate(3109, 9518));
-
-            if (p != null){
-                p.step();
-            }
+            TravelTo(Positions.CombatInstructorRatGateInside);
         } else {
             gate.click();
         }
     }
 
+    @Override
+    public boolean validate() {
+        cont = GetContextItems.GetContextItems();
+
+        if (cont.altChatText.startsWith("Combat") || cont.altChatText.startsWith("Attacking") || cont.altChatText.contains("combat instructor")) {
+            System.out.println("Combat Instructor Txt");
+            return true;
+        }
+
+        Npc guide = Npcs.newQuery().names("Combat Instructor").reachable().results().nearest();
+        if (guide != null){
+            System.out.println("Combat Instructor");
+            return true;
+        }
+
+        Npc rat = Npcs.newQuery().names("Giant rat").reachable().results().nearest();
+        if (rat != null){
+            System.out.println("Combat Instructor Rat");
+            return true;
+        }
+
+
+        return false;
+    }
 }

@@ -1,0 +1,22 @@
+<manifest>
+    <main-class>com.runemate.passive.bots.braceletalcher2.Main</main-class>
+    <name>Passive Bracelets</name>
+    <tag-line>Alchs Bracelets of Etherium</tag-line><!--Max of 50 chars-->
+    <description>Please start with Staff of Fire Equipped, 1m+ cash in inv, rev ethers in bank and nature runes in inv</description><!--Max of 110 chars-->
+    <version>1.0.1</version>
+    <compatibility>
+        <game>OSRS</game>
+    </compatibility>
+    <categories>
+        <category>OTHER</category>
+    </categories>
+    <!--Required to publish on the bot store-->
+    <internal-id>PassiveBracelets</internal-id>
+    <!--The rest are optional-->
+    <open-source>false</open-source>
+    <hidden>false</hidden> <!--If you need to hide it from the bot store for maintenance-->
+    <access>public</access>
+    <tags>
+        <tag>Bracelet</tag>
+    </tags>
+</manifest>

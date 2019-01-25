@@ -1,0 +1,26 @@
+<manifest>
+    <main-class>com.runemate.passive.bots.tutorialisland2.Main</main-class>
+    <name>Passive Tutorial2</name>
+    <tag-line>Completes Tutorial Island from any stage</tag-line><!--Max of 50 chars-->
+    <description>Completes Tutorial Island from any stage</description><!--Max of 110 chars-->
+    <version>1.0.0</version>
+    <compatibility>
+        <game>OSRS</game>
+    </compatibility>
+    <categories>
+        <category>OTHER</category>
+    </categories>
+    <!--Required to publish on the bot store-->
+    <internal-id>PassiveTutorial2</internal-id>
+    <!--The rest are optional-->
+    <open-source>false</open-source>
+    <price>0.01</price>
+    <hidden>false</hidden> <!--If you need to hide it from the bot store for maintenance-->
+    <access>private</access>
+    <tags>
+        <tag>Tutorial</tag>
+    </tags>
+    <resources>
+        <resource>com/runemate/passive/bots/tutorialisland2/ui/ui1.fxml</resource>
+    </resources>
+</manifest>

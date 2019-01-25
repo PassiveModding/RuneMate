@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<fx:root xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_LEFT" contentDisplay="GRAPHIC_ONLY"
+         maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
+         styleClass="secondary-titled-pane" type="javafx.scene.control.TitledPane"
+         xmlns="http://javafx.com/javafx/8.0.65">
+    <content>
+        <GridPane hgap="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="5.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" minWidth="0.0"/>
+                <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0"/>
+                <ColumnConstraints halignment="LEFT" hgrow="NEVER" minWidth="10.0"/>
+                <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0"/>
+                <ColumnConstraints halignment="LEFT" hgrow="NEVER" minWidth="10.0"/>
+                <ColumnConstraints hgrow="ALWAYS" minWidth="0.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" vgrow="NEVER"/>
+                <RowConstraints minHeight="10.0" vgrow="NEVER"/>
+                <RowConstraints minHeight="10.0" vgrow="NEVER"/>
+            </rowConstraints>
+            <children>
+                <Label text="Current lvl:" GridPane.columnIndex="1">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Label>
+                <Label text="Exp gained:" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Label>
+                <Label text="Gained lvls:" GridPane.columnIndex="3">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Label>
+                <Label text="Exp/hr:" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Label>
+                <Label text="TTL:" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="currentLevelLabel" text="40" GridPane.columnIndex="2">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="levelsGainedLabel" text="5" GridPane.columnIndex="4">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="timeToLevelLabel" text="01:30:50" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="expGainedLabel" text="30,000" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="expPerHourLabel" text="20,000" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Label>
+                <Label text="\% to next lvl:" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="percentToNextLevelLabel" text="10.33" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Label>
+            </children>
+        </GridPane>
+    </content>
+    <font>
+        <Font size="18.0"/>
+    </font>
+    <graphic>
+        <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+            <children>
+                <ProgressBar fx:id="titleProgressBar" maxHeight="30.0" maxWidth="1.7976931348623157E308"
+                             progress="0.5044"/>
+                <Label fx:id="titleLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" minWidth="200.0"
+                       text="Ranged | Lv 99 | 45,000 xp">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </padding>
+                </Label>
+            </children>
+        </StackPane>
+    </graphic>
+</fx:root>

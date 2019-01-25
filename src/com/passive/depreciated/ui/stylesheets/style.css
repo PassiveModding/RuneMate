@@ -1,0 +1,7 @@
+.table-column {
+    -fx-alignment: CENTER;
+}
+
+.secondary-titled-pane > .title {
+    -fx-font-size: 1.5em;
+}

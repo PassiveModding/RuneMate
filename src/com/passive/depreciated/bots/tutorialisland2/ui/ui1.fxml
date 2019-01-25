@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<fx:root hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" type="javafx.scene.layout.GridPane" vgap="5.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+   <Label fx:id="STATE_LBL" text="State:" />
+   <Label fx:id="BOT_STATE" text="N/A" GridPane.columnIndex="1" />
+   <Label text="Runtime:" GridPane.rowIndex="3" />
+   <Label fx:id="RUNTIME_LBL" text="00:00:00" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+   <CheckBox fx:id="LOGOUT_CHECK" layoutX="215.0" layoutY="69.0" mnemonicParsing="false" text="Logout when finished" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+   <Button fx:id="START_BTN" mnemonicParsing="false" text="Start Bot" GridPane.rowIndex="2" />
+   <TextField fx:id="NAME_BOX" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+   <Label fx:id="STATE_LBL1" layoutX="10.0" layoutY="12.0" text="Name:" GridPane.rowIndex="1" />
+   <columnConstraints>
+      <ColumnConstraints prefWidth="200.0" />
+      <ColumnConstraints prefWidth="200.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="60.0" minHeight="20.0" prefHeight="20.0" />
+      <RowConstraints maxHeight="60.0" minHeight="20.0" prefHeight="30.0" />
+       <RowConstraints maxHeight="60.0" minHeight="20.0" prefHeight="20.0" />
+       <RowConstraints maxHeight="60.0" minHeight="20.0" prefHeight="20.0" />
+   </rowConstraints>
+</fx:root>

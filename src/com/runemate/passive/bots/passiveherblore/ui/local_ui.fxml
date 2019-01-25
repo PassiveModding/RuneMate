@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Settings" type="javafx.scene.control.TitledPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <VBox alignment="TOP_CENTER">
+         <children>
+            <GridPane>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="Herb Type:" GridPane.rowIndex="1" />
+                  <Label layoutX="20.0" layoutY="20.0" text="Herb Use:" GridPane.rowIndex="2" />
+                  <Label layoutX="20.0" layoutY="44.0" text="Finished Potions:" GridPane.rowIndex="3" />
+                  <Label layoutX="20.0" layoutY="74.0" text="Cycle Herbs:" GridPane.rowIndex="5" />
+                  <CheckBox fx:id="HERB_CHANGE" mnemonicParsing="false" text="Use Next Lowest Herb When Out" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <tooltip>
+                        <Tooltip text="This will go to the next lowest levelled herb in your bank if you run out of the current one" />
+                     </tooltip>
+                  </CheckBox>
+                  <ChoiceBox fx:id="FINISH_POT" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <ChoiceBox fx:id="HERB_ACTION" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <ChoiceBox fx:id="POT_TYPE" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="HERB_TYPE_LBL_CURRENT" text="N/A" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Label fx:id="HERB_ACTION_LBL_CURRENT" text="Use Grimy and Clean Herbs" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Label fx:id="FINISH_POT_LBL" text="N/A" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <ChoiceBox fx:id="FINISH_ACTION" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label fx:id="HERB_TYPE_LBL11" text="When Finished:" GridPane.rowIndex="4" />
+                  <Label fx:id="FINISH_ACTION_LBL" text="Logout" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <Label layoutX="10.0" layoutY="44.0" text="Main Task:" />
+                  <ChoiceBox fx:id="MAIN_TASK_TYPE" layoutX="110.0" layoutY="40.0" prefWidth="150.0" GridPane.columnIndex="1" />
+                  <Label fx:id="MAIN_TASK_LBL" layoutX="306.0" layoutY="44.0" text="Make Unfinished Potions" GridPane.columnIndex="2" />
+               </children>
+            </GridPane>
+            <Button fx:id="START_BTN" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Set" />
+         </children>
+      </VBox>
+   </content>
+</fx:root>

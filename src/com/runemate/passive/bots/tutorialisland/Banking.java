@@ -3,121 +3,108 @@ package com.runemate.passive.bots.tutorialisland;
 import com.runemate.game.api.hybrid.entities.GameObject;
 import com.runemate.game.api.hybrid.local.Camera;
 import com.runemate.game.api.hybrid.local.hud.interfaces.Bank;
-import com.runemate.game.api.hybrid.local.hud.interfaces.ChatDialog;
 import com.runemate.game.api.hybrid.local.hud.interfaces.InterfaceComponent;
 import com.runemate.game.api.hybrid.local.hud.interfaces.Interfaces;
-import com.runemate.game.api.hybrid.location.Coordinate;
-import com.runemate.game.api.hybrid.location.navigation.basic.BresenhamPath;
 import com.runemate.game.api.hybrid.region.GameObjects;
 import com.runemate.game.api.hybrid.region.Players;
+import com.runemate.game.api.script.framework.task.Task;
 
-public class Banking {
-    public static void BankMethod(){
-        String compText = GetCompUi.GetCompText();
+import static com.passive.api.runescape.navigation.Travel.TravelTo;
 
-        String dialog = ChatDialog.getText();
-        String dialogTitle = ChatDialog.getTitle();
+public class Banking extends Task {
+    GetContextItems.Context cont;
 
-        System.out.println("Dialog: " + dialog);
-        System.out.println("Dialog Title: " + dialogTitle);
+    @Override
+    public void execute() {
 
-        if (dialog != null){
-            ChatDialog.getContinue().select();
-            return;
-        }
-
-
-        if (compText != null){
-            if  (compText.startsWith("Banking") && compText.contains("This is your bank")){
-                if (Bank.isOpen()){
-                    Bank.close();
-                } else {
-                    GameObject poll_booth = GameObjects.newQuery().names("Poll booth").results().nearest();
-
-                    if (poll_booth != null){
-
-                        if (poll_booth.isVisible()){
-                            poll_booth.click();
-                            return;
-                        } else {
-                            Camera.turnTo(poll_booth);
-                        }
-
-                        if (poll_booth.distanceTo(Players.getLocal().getPosition()) < 5){
-                            System.out.println("Poll booth located");
-                            poll_booth.click();
-                        } else{
-                            System.out.println("Moving to poll booth");
-                            GoToPollBooth();
-                        }
-                    } else {
-                        System.out.println("Unable to locate poll booth");
-                        GoToPollBooth();
-                    }
-                }
+        if (cont.altChatText.startsWith("Banking") && cont.altChatText.contains("This is your bank")){
+            if (Bank.isOpen()){
+                Bank.close();
+                return;
             }
-            else if (compText.startsWith("Banking")){
-                GameObject bankBooth = GameObjects.newQuery().names("Bank booth").results().nearest();
 
-                if (bankBooth != null){
-                    if (bankBooth.distanceTo(Players.getLocal().getPosition()) < 2){
-                        System.out.println("Bank booth located");
-                        bankBooth.click();
-                    } else{
-                        GoToBankBooth();
-                    }
+            PollBooth();
+        } else if (cont.altChatText.startsWith("Banking")){
+            GameObject bankBooth = GameObjects.newQuery().names("Bank booth").results().nearest();
+            if (bankBooth != null){
+                if (bankBooth.isVisible()){
+                    bankBooth.click();
+                    //bankBooth.interact("Use");
                 } else {
-                    System.out.println("Unable to locate bank booth");
-                    GoToBankBooth();
+                    Camera.turnTo(bankBooth);
                 }
-            } else if (compText.startsWith("Moving on")) {
-                InterfaceComponent pollint = Interfaces.newQuery().actions("Close").visible().results().first();
-                if (pollint != null){
-                    System.out.println("Closing poll booth");
-                    pollint.interact("Close");
-                } else {
-                    System.out.println("Finding Exit door");
-                    GameObject door = GameObjects.newQuery().names("Door").results().nearestTo(new Coordinate(3124, 3124));
-                    if (door != null){
-                        if (door.isVisible()){
-                            System.out.println("Door found and visible");
-                            door.click();
-                        } else {
-                            GoToDoor();
-                        }
+            } else {
+                TravelTo(Positions.BankRoom);
+            }
+        } else if (cont.altChatText.startsWith("Moving on")) {
+            InterfaceComponent pollint = Interfaces.newQuery().actions("Close").visible().results().first();
+            if (pollint != null){
+                pollint.interact("Close");
+            } else {
+                GameObject door = GameObjects.newQuery().names("Door").results().nearestTo(Positions.ExitBankRoom);
+                if (door != null){
+                    if (door.isVisible()){
+                        //door.click();
+                        door.interact("Open");
                     } else {
                         GoToDoor();
                     }
+                } else {
+                    GoToDoor();
                 }
             }
         }
     }
 
     public static void GoToDoor(){
-        System.out.println("Moving to door location");
-        BresenhamPath p = BresenhamPath.buildTo(new Coordinate(3124, 3124));
+        TravelTo(Positions.ExitBankRoom);
+    }
 
-        if (p != null){
-            p.step();
+    public void PollBooth() {
+        GameObject poll_booth = GameObjects.newQuery().names("Poll booth").results().nearest();
+        if (poll_booth != null){
+
+            if (poll_booth.isVisible()){
+                //poll_booth.click();
+                poll_booth.interact("Use");
+                return;
+            } else {
+                Camera.turnTo(poll_booth);
+            }
+
+            if (poll_booth.distanceTo(Players.getLocal().getPosition()) < 5){
+                //poll_booth.click();
+                poll_booth.interact("Use");
+            } else{
+                GoToPollBooth();
+            }
+        } else {
+            GoToPollBooth();
         }
     }
 
-
-    public static void GoToPollBooth(){
-        BresenhamPath p = BresenhamPath.buildTo(new Coordinate(3120, 3121));
-
-        if (p != null){
-            p.step();
-        }
+    public void GoToPollBooth() {
+        TravelTo(Positions.PollBooth);
     }
 
-    public static void GoToBankBooth(){
-        BresenhamPath p = BresenhamPath.buildTo(new Coordinate(3122, 3123));
+    @Override
+    public boolean validate() {
+        cont = GetContextItems.GetContextItems();
 
-        if (p != null){
-            p.step();
+        if (cont.altChatText.startsWith("Banking")){
+            System.out.println("Banking");
+            return true;
         }
+
+        /*
+        GameObject bankBooth = GameObjects.newQuery().names("Bank booth").results().first();
+        if (bankBooth != null){
+            System.out.println("Banking");
+            return true;
+        }
+        */
+
+        return Positions.BankBoothInfront.isReachable();
+
     }
-
-
 }

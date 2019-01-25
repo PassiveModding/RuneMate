@@ -1,0 +1,26 @@
+<manifest>
+    <main-class>com.runemate.passive.bots.herblore.Main</main-class>
+    <name>Passive Herblore</name>
+    <tag-line>Cleans Herbs and Makes Potions!</tag-line><!--Max of 50 chars-->
+    <description>Please start with All ingredients needed for your required potions</description><!--Max of 110 chars-->
+    <version>1.0.1</version>
+    <compatibility>
+        <game>OSRS</game>
+    </compatibility>
+    <categories>
+        <category>HERBLORE</category>
+    </categories>
+    <!--Required to publish on the bot store-->
+    <internal-id>PassiveHerblore</internal-id>
+    <!--The rest are optional-->
+    <open-source>false</open-source>
+    <price>0.02</price>
+    <hidden>false</hidden> <!--If you need to hide it from the bot store for maintenance-->
+    <access>public</access>
+    <tags>
+        <tag>Herblore</tag>
+    </tags>
+    <resources>
+        <resource>com/runemate/passive/bots/herblore/ui/ui1.fxml</resource>
+    </resources>
+</manifest>

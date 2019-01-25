@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<fx:root hgap="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="350.0" minWidth="450.0" styleClass="root" type="javafx.scene.layout.GridPane" vgap="5.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">   <rowConstraints>
+      <RowConstraints maxHeight="1.7976931348623157E308" />
+      <RowConstraints maxHeight="1.7976931348623157E308" />
+      <RowConstraints maxHeight="1.7976931348623157E308" />
+   </rowConstraints>
+   <columnConstraints>
+      <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="520.0" />
+      <ColumnConstraints maxWidth="200.0" />
+   </columnConstraints>
+   <children>
+      <GridPane prefHeight="100.0" prefWidth="543.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" />
+          <ColumnConstraints hgrow="SOMETIMES" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="1.7976931348623157E308" prefHeight="75.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="300.0">
+               <children>
+                  <Label fx:id="RUNTIME_LABEL" text="00:00:00" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="STATUS_LABEL" text="Status" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1">
+               <children>
+                  <Label fx:id="BOT_NAME_LABEL" text="Bot Name" />
+                  <Label fx:id="BOT_VERSION_LABEL" text="Version 1.0.0" />
+                  <Label fx:id="BOT_AUTHOR_LABEL" text="By Bot Author" />
+               </children>
+            </VBox>
+         </children>
+      </GridPane>
+      <ScrollPane fx:id="contentScrollPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="300.0" GridPane.rowIndex="2">
+         <content>
+            <VBox fx:id="contentBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+         </content>
+      </ScrollPane>
+      <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="60.0" GridPane.rowIndex="1">
+         <content>
+            <HBox>
+               <children>
+                  <Button fx:id="BOT_PAGE_BUTTON" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" text="Bot Page" wrapText="true">
+                     <tooltip>
+                        <Tooltip text="Runemate Bot Information" />
+                     </tooltip></Button>
+                  <Button fx:id="PASSIVE_DISCORD" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" text="Discord" wrapText="true">
+                     <tooltip>
+                        <Tooltip text="Discord Server" />
+                     </tooltip></Button>
+                  <Button fx:id="MOUSE_OVERLAY" layoutX="74.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" text="Overlay" wrapText="true">
+                     <tooltip>
+                        <Tooltip text="Toggle Mouse Overlay" />
+                     </tooltip></Button>
+               </children>
+            </HBox>
+         </content>
+      </ScrollPane>
+   </children>
+</fx:root>

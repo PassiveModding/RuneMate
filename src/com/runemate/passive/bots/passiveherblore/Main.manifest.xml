@@ -1,0 +1,45 @@
+<manifest>
+    <main-class>com.runemate.passive.bots.passiveherblore.Main</main-class>
+    <name>Passive Herblore</name>
+    <tag-line>Makes Unfinished Potions OR 3 Dose Potions</tag-line>
+    <description>Make sure your bank contains the necessary ingredients</description>
+    <version>1.0.0</version>
+    <compatibility>
+        <game-type>OSRS</game-type>
+    </compatibility>
+    <categories>
+        <category>HERBLORE</category>
+    </categories>
+    <resources>
+        <!--Custom UI-->
+        <resource>com/runemate/passive/bots/passiveherblore/ui/local_ui.fxml</resource>
+
+        <!--UI Parent-->
+        <resource>com/passive/api/ui/passive_ui/passive_ui.fxml</resource>
+        <!--Skill Tab-->
+        <resource>com/passive/api/ui/passive_ui/skill_pane/skill_ui.fxml</resource>
+        <resource>com/passive/api/ui/passive_ui/skill_pane/tabs/skill_tab.fxml</resource>
+        <!--Profit Tab-->
+        <resource>com/passive/api/ui/passive_ui/profit_pane/profit_pane.fxml</resource>
+        <resource>com/passive/api/ui/passive_ui/profit_pane/item_tab/item_tab.fxml</resource>
+        <resource>com/passive/api/ui/passive_ui/skill_pane/tabs/skill_tab.fxml</resource>
+
+        <!--Images-->
+        <resource>com/passive/api/ui/images/camera.png</resource>
+        <resource>com/passive/api/ui/images/discord.png</resource>
+        <resource>com/passive/api/ui/images/web_page.png</resource>
+        <resource>com/passive/api/ui/images/signature.png</resource>
+        <resource>com/passive/api/ui/images/mouse.png</resource>
+        <resource>com/passive/api/ui/images/skills-icon-30x30.png</resource>
+        <resource>com/passive/api/ui/images/profit-icon-30x30.png</resource>
+        <resource>com/passive/api/ui/images/break-handler-icon-30x30.png</resource>
+        <resource>com/passive/api/ui/images/settings-icon-30x30.png</resource>
+    </resources>
+    <!--Required to publish on the bot store-->
+    <internal-id>PASSIVE_HERBLORE</internal-id>
+    <!--The rest are optional-->
+    <price>0.02</price>
+    <hidden>false</hidden>
+    <access>public</access>
+    <open-source>false</open-source>
+</manifest>
