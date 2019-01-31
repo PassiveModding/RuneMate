@@ -19,7 +19,7 @@ public class Interfaces {
             return true;
         }
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 2; i++) {
             if (Bank.isOpen()){
                 return true;
             }
@@ -132,6 +132,14 @@ public class Interfaces {
     */
 
     public static boolean ensureMakingAll(String item, List<String> ingredients){
+        return ensureMakingAll(item, ingredients, 0);
+    }
+
+    public static boolean ensureMakingAll(String item, List<String> ingredients, int retryCount){
+        if (retryCount > 5){
+            return false;
+        }
+
         if (!MakeAllInterface.isOpen()) {
             return false;
         }
@@ -144,6 +152,10 @@ public class Interfaces {
                 MakeAllInterface.selectItem(item);
             }
             Execution.delay(100, 500);
+        }
+
+        if (MakeAllInterface.isOpen()){
+            return ensureMakingAll(item, ingredients, retryCount + 1);
         }
 
         Execution.delayUntil(() -> noIngredients(ingredients), 10000, 12000);
@@ -166,7 +178,7 @@ public class Interfaces {
             return true;
         }
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 2; i++) {
             if (Bank.isOpen() || GrandExchange.isOpen()){
                 if (Bank.isOpen()){
                     //Bank.close();
@@ -191,7 +203,7 @@ public class Interfaces {
             return true;
         }
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 2; i++) {
             if (GrandExchange.isOpen()){
                 return true;
             }

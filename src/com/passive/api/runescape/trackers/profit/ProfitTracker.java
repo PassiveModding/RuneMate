@@ -7,6 +7,7 @@ import com.runemate.game.api.script.framework.listeners.InventoryListener;
 import com.runemate.game.api.script.framework.listeners.MoneyPouchListener;
 import com.runemate.game.api.script.framework.listeners.events.ItemEvent;
 import com.runemate.game.api.script.framework.listeners.events.MoneyPouchEvent;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 

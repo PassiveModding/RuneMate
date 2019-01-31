@@ -15,6 +15,7 @@ public class Info {
     public final StringProperty finishActionDisplay = new SimpleStringProperty();
     public final StringProperty herbActionDisplay = new SimpleStringProperty();
     public final StringProperty mainTaskDisplay = new SimpleStringProperty();
+    public final StringProperty sellOnFinishDisplay = new SimpleStringProperty();
 
     public boolean changeHerbs = false;
     public Finish FinishAction = Finish.LOGOUT_ON_FINISH;
@@ -22,6 +23,9 @@ public class Info {
     public BotAction mainTask = BotAction.MAKE_UNFINISHED_POTIONS;
     public Herb herbInfo = Herb.GUAM;
     public Herb.Potion potionToMake = null;
+
+    public boolean sellOnFinish = false;
+    public int sellOnFinishValue = -1;
 
     public boolean run = false;
 
@@ -48,6 +52,12 @@ public class Info {
 
             if (potionToMake != null) {
                 finalPotName.setValue(potionToMake.displayName());
+            }
+
+            if (sellOnFinish){
+                sellOnFinishDisplay.setValue("Sell for " + sellOnFinishValue);
+            } else {
+                sellOnFinishDisplay.setValue("N/A");
             }
         });
     }

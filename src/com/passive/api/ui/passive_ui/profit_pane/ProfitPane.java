@@ -9,6 +9,8 @@ import com.runemate.game.api.hybrid.util.Resources;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -85,5 +87,4 @@ public class ProfitPane extends TitledPane implements Initializable, ItemEventLi
         Platform.runLater(() -> contentBox.getChildren().removeIf(tab -> ((ItemTab) tab).getInfo() == info));
     }
     //endregion
-
 }

@@ -1,6 +1,8 @@
 package com.runemate.passive.bots.passiveherblore.ui;
 
 import com.passive.api.ui.javafx.JavaFX;
+import com.runemate.game.api.hybrid.net.GrandExchange;
+import com.runemate.game.api.osrs.net.OSBuddyExchange;
 import com.runemate.passive.bots.passiveherblore.Main;
 import com.runemate.passive.bots.passiveherblore.framework.BotAction;
 import com.runemate.passive.bots.passiveherblore.framework.Finish;
@@ -45,6 +47,13 @@ public class Local_UI extends TitledPane implements Initializable {
     @FXML
     public Label MAIN_TASK_LBL;
 
+    @FXML
+    public TextField SALE_VALUE_FIELD;
+    @FXML
+    public CheckBox SELL_ON_FINISH;
+    @FXML
+    public Label SELL_ON_FINISH_LBL;
+
     public Local_UI(Main bot){
         this.bot = bot;
         JavaFX.loadFxml(bot, "com/runemate/passive/bots/passiveherblore/ui/local_ui.fxml", this, this);
@@ -57,6 +66,7 @@ public class Local_UI extends TitledPane implements Initializable {
         HERB_ACTION_LBL_CURRENT.textProperty().bind(bot.info.herbActionDisplay);
         FINISH_POT_LBL.textProperty().bind(bot.info.finalPotName);
         MAIN_TASK_LBL.textProperty().bind(bot.info.mainTaskDisplay);
+        SELL_ON_FINISH_LBL.textProperty().bind(bot.info.sellOnFinishDisplay);
 
         HERB_CHANGE.setOnAction(HERB_CHANGE_CLICK());
         START_BTN.setOnAction(START_BTN_CLICK());
@@ -75,7 +85,6 @@ public class Local_UI extends TitledPane implements Initializable {
                 Herb.CADANTINE.getUnfinishedDisplayName(), Herb.LANTADYME.getUnfinishedDisplayName(), Herb.DWARF_WEED.getUnfinishedDisplayName(), Herb.TORSTOL.getUnfinishedDisplayName());
         HERB_ACTION.getItems().setAll(HerbAction.GRIMY_ONLY.displayName, HerbAction.GRIMY_AND_CLEAN.displayName, HerbAction.CLEAN_ONLY.displayName);
     }
-
 
 
     public String getValueFromChoice(ChoiceBox box){
@@ -162,6 +171,19 @@ public class Local_UI extends TitledPane implements Initializable {
         return event -> {
             try {
                 bot.info.changeHerbs = HERB_CHANGE.isSelected();
+                if (bot.info.changeHerbs){
+                    if (SELL_ON_FINISH.isSelected()){
+                        SELL_ON_FINISH.setSelected(false);
+                    }
+
+                    if (bot.info.sellOnFinish){
+                        bot.info.sellOnFinish = false;
+                        bot.info.sellOnFinishValue = -1;
+                        SELL_ON_FINISH.setSelected(false);
+                        com.runemate.game.api.client.ClientUI.showAlert("Sell on finish cannot be used if changing herbs");
+                    }
+                }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -225,6 +247,19 @@ public class Local_UI extends TitledPane implements Initializable {
                             if (info != null) {
                                 bot.info.mainTaskDisplay.setValue(botAction.getMessage());
                                 bot.info.mainTask = botAction;
+                            }
+                        }
+
+                        bot.info.sellOnFinish = SELL_ON_FINISH.isSelected();
+                        if (bot.info.sellOnFinish){
+                            try {
+                                String saleValueText = SALE_VALUE_FIELD.getText();
+                                int saleValue = Integer.parseInt(saleValueText);
+                                bot.info.sellOnFinishValue = saleValue;
+                                bot.info.sellOnFinishDisplay.setValue("Sell for " + saleValue);
+
+                            } catch (NumberFormatException nfe){
+                                nfe.printStackTrace();
                             }
                         }
 

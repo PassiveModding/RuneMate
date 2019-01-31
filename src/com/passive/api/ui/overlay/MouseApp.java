@@ -185,11 +185,11 @@ public class MouseApp extends Application {
             }
 
             gc.setFill(Color.WHITESMOKE);
+            gc.setLineWidth(3);
 
             for (int i = 0; i < mousePoints.size()-1; i++) {
                 Point p = mousePoints.get(i);
                 Point p2 = mousePoints.get(i+1);
-                gc.setLineWidth(3);
                 gc.strokeLine(p.x, p.y, p2.x, p2.y);
             }
         } catch (Exception e){
